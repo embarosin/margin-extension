@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Margin — multiplayer comments for any page</title>
+    <meta
+      name="description"
+      content="Margin turns any website, prototype, internal tool, or localhost app into a Google-Docs-style comment layer. Pin threaded feedback, ask AI grounded in the page, and hand notes to your coding agent. Local-first, team-optional, private by design."
+    />
+    <meta property="og:title" content="Margin — comments for any page" />
+    <meta
+      property="og:description"
+      content="Give every web page a comment layer. Pin threaded feedback, ask AI, sync with your team. Try the live demo — no install needed."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="site.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366f1'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='white'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <!-- ───────────────────────── header / nav ───────────────────────── -->
+    <header class="site-head">
+      <a class="brand" href="#about">
+        <span class="brand-logo">✦</span>
+        <span>Margin</span>
+      </a>
+      <nav class="tabs" role="tablist" aria-label="Sections">
+        <button class="tab" data-tab="about" role="tab" aria-selected="true">About</button>
+        <button class="tab" data-tab="demo" role="tab" aria-selected="false">Live demo</button>
+        <button class="tab" data-tab="privacy" role="tab" aria-selected="false">Privacy</button>
+      </nav>
+      <a class="cta-mini" id="nav-cta" href="#demo">Try it →</a>
+    </header>
+
+    <!-- ───────────────────────────── ABOUT ──────────────────────────── -->
+    <main>
+      <section class="panel" id="about" data-panel="about">
+        <div class="hero">
+          <div class="hero-logo">✦</div>
+          <h1>Multiplayer comments for <em>any</em> page</h1>
+          <p class="lede">
+            Turn any website, AI-built prototype, internal tool, or
+            <code>localhost</code> dev server into a Google-Docs-style comment
+            layer. Click an element or highlight text, leave a threaded comment —
+            or ask the built-in AI a question grounded in the page.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-goto="demo">▶ Try the live demo</button>
+            <a class="btn btn-ghost" href="https://github.com" id="repo-link" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+          <p class="hero-note">No install needed to try it — the demo below runs the real experience in your browser.</p>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <div class="feature-ico">💬</div>
+            <h3>Comment on anything</h3>
+            <p>Click any element to pin a comment, or highlight text and hit Comment. Replies thread underneath. Resolve when done.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-ico">🖱</div>
+            <h3>Browse or Comment</h3>
+            <p>A draggable bar toggles between using the page normally and click-to-pin. Highlight-to-comment works in both.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-ico">📌</div>
+            <h3>Comments that stick</h3>
+            <p>Pins re-attach after reloads — even after AI tools rewrite the page — via a resilient multi-signal anchoring engine.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-ico">✨</div>
+            <h3>Ask AI, grounded in the page</h3>
+            <p>Bring your own key from Claude, GPT, Gemini, or any OpenAI-compatible endpoint. Ask about the page or summarize all feedback.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-ico">🤖</div>
+            <h3>Hand feedback to your agent</h3>
+            <p>Select comments → Copy for AI (or download .md / .json): a tagged task list your coding agent can read and action.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-ico">👥</div>
+            <h3>Local-first, team-optional</h3>
+            <p>Everything works offline with no account. Point Margin at a sync server and your whole team comments in real time.</p>
+          </div>
+        </div>
+
+        <div class="how">
+          <h2>How it works</h2>
+          <ol class="steps">
+            <li><span class="step-n">1</span><div><b>Turn Margin on</b> on any tab. A draggable control bar appears.</div></li>
+            <li><span class="step-n">2</span><div><b>Click an element</b> in Comment mode (or highlight text) to pin a note.</div></li>
+            <li><span class="step-n">3</span><div><b>Reply, resolve, and ask AI</b> in the threaded sidebar.</div></li>
+            <li><span class="step-n">4</span><div><b>Export for your agent</b> or sync the whole thing with your team.</div></li>
+          </ol>
+        </div>
+
+        <div class="privacy-strip">
+          <strong>Private by design.</strong> No analytics, no tracking, no ads.
+          Your comments stay in your browser unless you turn on team sync. AI calls
+          go directly from your browser to the provider you choose — we run no
+          servers and receive none of your data.
+          <button class="link" data-goto="privacy">Read the full privacy policy →</button>
+        </div>
+      </section>
+
+      <!-- ───────────────────────────── DEMO ─────────────────────────── -->
+      <section class="panel" id="demo" data-panel="demo" hidden>
+        <div class="demo-intro">
+          <h2>Try Margin right here</h2>
+          <p>
+            This is a live, in-page demo — the same interactions as the real
+            extension, running on a mock product page below. Switch to
+            <b>💬 Comment</b>, then click anything or highlight text to leave a
+            note. Reply, resolve, ask the (demo) AI, and flip on a demo team.
+          </p>
+          <div class="demo-tips" id="demo-tips">
+            <span class="demo-tip">① Hit <b>💬 Comment</b> in the bar</span>
+            <span class="demo-tip">② Click an element or highlight text</span>
+            <span class="demo-tip">③ Try <b>Connect demo team</b> for the green badge</span>
+          </div>
+        </div>
+
+        <!-- the demo "browser" stage; everything inside is driven by demo.js -->
+        <div class="demo-frame">
+          <div class="demo-chrome">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <div class="demo-url">🔒 acme-prototype.app</div>
+            <button class="demo-reset" id="demo-reset" title="Reset the demo">↺ Reset</button>
+          </div>
+
+          <!-- stage = the host page + Margin's injected UI -->
+          <div class="demo-stage" id="demo-stage">
+            <!-- mock host page content (the thing being commented on) -->
+            <div class="mock-page" id="mock-page">
+              <nav class="mock-nav">
+                <span class="mock-brand" data-label="logo">◆ Acme</span>
+                <span class="mock-links">
+                  <a data-label="Features link">Features</a>
+                  <a data-label="Pricing link">Pricing</a>
+                  <a data-label="Sign-in link">Sign in</a>
+                </span>
+              </nav>
+              <div class="mock-hero">
+                <h1 data-label="hero headline">Ship your idea before lunch.</h1>
+                <p data-label="hero subtext">Acme turns a sentence into a working app. No setup, no servers, no excuses.</p>
+                <div class="mock-cta-row">
+                  <button class="mock-btn-primary" data-label="Get started button">Get started free</button>
+                  <button class="mock-btn-ghost" data-label="Watch demo button">Watch demo</button>
+                </div>
+              </div>
+              <div class="mock-cards">
+                <div class="mock-card" data-label="Speed feature card"><h3>⚡ Fast</h3><p>From prompt to preview in seconds.</p></div>
+                <div class="mock-card" data-label="Collaboration feature card"><h3>👋 Shared</h3><p>Bring your team into the build.</p></div>
+                <div class="mock-card" data-label="Pricing feature card"><h3>💸 Free tier</h3><p>Start building at zero cost.</p></div>
+              </div>
+              <p class="mock-fineprint" data-label="footer fine print">Try selecting this sentence to leave a highlight comment.</p>
+            </div>
+            <!-- Margin's injected UI gets mounted here by demo.js -->
+          </div>
+        </div>
+        <p class="demo-foot">
+          Like it? It's a real Manifest V3 extension with no build step.
+          <a href="https://github.com" id="repo-link-2" target="_blank" rel="noopener">Get it on GitHub</a>
+          and load the folder, or wait for the Chrome Web Store listing.
+        </p>
+      </section>
+
+      <!-- ──────────────────────────── PRIVACY ───────────────────────── -->
+      <section class="panel doc" id="privacy" data-panel="privacy" hidden>
+        <h1>Margin — Privacy Policy</h1>
+        <p class="updated">Last updated: 2026-06-29</p>
+        <p>
+          Margin is a browser extension that lets you leave comments on web pages.
+          This policy explains exactly what data Margin handles and where it goes.
+          <strong>Margin has no analytics, no tracking, no ads, and no third-party
+          data sharing.</strong>
+        </p>
+
+        <h2>What Margin stores, and where</h2>
+        <ul>
+          <li>
+            <b>Your comments and identity</b> (display name, avatar color, comment
+            text, and the page anchors they attach to) are stored
+            <b>locally in your browser</b> via the <code>storage</code> API. They
+            never leave your device unless <em>you</em> enable Team Sync.
+          </li>
+          <li>
+            <b>Your settings</b> (including any API key you enter) are stored
+            <b>locally in your browser</b>. The API key is never transmitted to us
+            or anyone except the AI provider you choose (see below).
+          </li>
+        </ul>
+        <p>We, the developers, operate <b>no servers</b> and receive <b>none</b> of your data.</p>
+
+        <h2>Optional features that send data off your device</h2>
+        <p>These are <b>off by default</b>. Data leaves your browser only if you turn them on:</p>
+        <ol>
+          <li>
+            <b>AI (optional).</b> You choose the provider — <b>Anthropic, OpenAI,
+            Google Gemini, or any OpenAI-compatible endpoint</b> (e.g. Azure
+            OpenAI, a local model). If you add a key and use an AI feature, the
+            extension sends — directly from your browser to <b>the provider you
+            selected</b> — the relevant page text, the comment thread, and your
+            question, in order to generate a response. This happens only when you
+            click an AI action. Each provider's own privacy policy governs that
+            data (e.g.
+            <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic</a>,
+            <a href="https://openai.com/policies" target="_blank" rel="noopener">OpenAI</a>,
+            <a href="https://ai.google.dev/terms" target="_blank" rel="noopener">Google</a>).
+            Your API key is sent only to that provider, only to authenticate these requests.
+          </li>
+          <li>
+            <b>Team Sync (optional).</b> If you enter a Sync Server URL, your
+            comments for a page are sent to <b>that server, which you or your team
+            operate</b>. Margin does not run this server and does not control it;
+            data handling there is governed by whoever hosts it. If you leave this
+            blank, no comment data is ever transmitted.
+          </li>
+        </ol>
+
+        <h2>What Margin does NOT do</h2>
+        <ul>
+          <li>No analytics, telemetry, or usage tracking.</li>
+          <li>No advertising or ad networks.</li>
+          <li>No selling, renting, or sharing of personal data.</li>
+          <li>
+            No collection of browsing history. Margin reads page content only on
+            pages where you actively use it, and only to anchor your comments or
+            (if enabled) to answer an AI question you asked.
+          </li>
+        </ul>
+
+        <h2>Permissions and why they're needed</h2>
+        <ul>
+          <li><code>storage</code> — to save your comments and settings locally.</li>
+          <li><code>contextMenus</code> — to add the right-click "Comment on this page" entry.</li>
+          <li><code>identity</code> (optional) — only used if you sign in to your team's sync server via Google.</li>
+          <li>
+            Host access (<code>&lt;all_urls&gt;</code>) — so you can comment on
+            <em>any</em> page, including internal tools and <code>localhost</code>.
+            Margin's UI is injected on pages but stays inert until you turn it on.
+            It does not read or send page content in the background.
+          </li>
+        </ul>
+
+        <h2>Data deletion</h2>
+        <p>
+          Open <b>Settings → Data → "Delete all Margin comments in this browser"</b>,
+          or remove the extension, to erase all locally stored data. For Team Sync,
+          ask your server operator to delete server-side data.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions about this policy or your data:
+          <a href="mailto:ebbarosin@gmail.com">ebbarosin@gmail.com</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <span>✦ Margin — comments for any page.</span>
+      <span class="foot-links">
+        <button class="link" data-goto="about">About</button>
+        <button class="link" data-goto="demo">Demo</button>
+        <button class="link" data-goto="privacy">Privacy</button>
+      </span>
+    </footer>
+
+    <script src="demo.js"></script>
+  </body>
+</html>
