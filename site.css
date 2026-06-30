@@ -61,11 +61,10 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 /* hero */
 .hero { text-align: center; max-width: 720px; margin: 24px auto 56px; }
 .hero-logo {
-  width: 72px; height: 72px; border-radius: 20px; margin: 0 auto 22px;
-  background: linear-gradient(135deg, var(--indigo), var(--violet)); color: #fff;
-  font-size: 38px; display: grid; place-items: center;
-  box-shadow: 0 14px 40px rgba(99,102,241,.4);
+  width: 72px; height: 72px; margin: 0 auto 22px;
+  filter: drop-shadow(0 14px 40px rgba(99,102,241,.4));
 }
+.hero-logo svg { width: 100%; height: 100%; display: block; }
 .hero h1 { font-size: 44px; line-height: 1.1; letter-spacing: -.02em; }
 .lede { color: #4b5563; font-size: 18px; margin-top: 18px; }
 .hero-actions { display: flex; gap: 12px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
@@ -128,8 +127,12 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 .mock-hero h1 { font-size: 38px; letter-spacing: -.02em; }
 .mock-hero p { color: #64748b; font-size: 17px; margin: 14px auto 0; max-width: 480px; }
 .mock-cta-row { display: flex; gap: 12px; justify-content: center; margin-top: 26px; }
-.mock-btn-primary { background: #4f46e5; color: #fff; border: none; border-radius: 10px; padding: 11px 22px; font-size: 15px; font-weight: 700; cursor: default; }
-.mock-btn-ghost { background: #fff; color: #334155; border: 1px solid #d8dae0; border-radius: 10px; padding: 11px 22px; font-size: 15px; font-weight: 700; cursor: default; }
+.mock-btn-primary { background: #4f46e5; color: #fff; border: none; border-radius: 10px; padding: 11px 22px; font-size: 15px; font-weight: 700; cursor: default; transition: all .3s cubic-bezier(.34,1.56,.64,1); }
+.mock-btn-ghost { background: #fff; color: #334155; border: 1px solid #d8dae0; border-radius: 10px; padding: 11px 22px; font-size: 15px; font-weight: 700; cursor: default; transition: all .3s ease; }
+/* preview transforms — simulate what a coding agent would ship after acting on a comment */
+.mock-page .mock-preview-grow { font-size: 18px; padding: 16px 34px; box-shadow: 0 10px 26px rgba(79,70,229,.45); transform: translateY(-1px); }
+.mock-page .mock-preview-dim { opacity: .55; transform: scale(.96); }
+.mock-page [data-preview-edited] { outline: 2px dashed #a5b4fc; outline-offset: 3px; border-radius: 6px; }
 .mock-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 12px 28px 8px; }
 .mock-card { background: #f8fafc; border: 1px solid #eef0f3; border-radius: 14px; padding: 20px; }
 .mock-card h3 { font-size: 16px; } .mock-card p { color: #64748b; font-size: 14px; margin-top: 6px; }
@@ -231,6 +234,14 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 #demo-stage .mg-reply-actions { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
 #demo-stage .mg-spacer { flex: 1; }
 #demo-stage .mg-ai-thinking { font-size: 12px; color: var(--violet); padding: 6px 0; }
+
+/* AI suggestion → preview-the-change affordance (clearly a simulation, not a live edit) */
+#demo-stage .mg-ai-disclaimer { font-size: 11px; color: #6b7280; background: #fff; border-left: 3px solid #c7d2fe; padding: 7px 9px; border-radius: 0 6px 6px 0; margin-top: 8px; line-height: 1.45; }
+#demo-stage .mg-ai-disclaimer b { color: #4f46e5; }
+#demo-stage .mg-preview-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+#demo-stage .mg-preview-btn { background: linear-gradient(135deg, var(--violet), var(--indigo)); color: #fff; border: none; border-radius: 7px; padding: 6px 11px; font-size: 12px; font-weight: 700; cursor: pointer; }
+#demo-stage .mg-preview-btn.on { background: #f3f4f6; color: #374151; }
+#demo-stage .mg-preview-tag { font-size: 11px; font-weight: 700; color: #4f46e5; background: #eef2ff; border-radius: 999px; padding: 2px 8px; }
 
 /* summary card */
 #demo-stage .mg-summary { background: #f5f3ff; border: 1px solid #ede9fe; border-radius: 12px; padding: 10px; font-size: 13px; }

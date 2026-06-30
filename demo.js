@@ -345,26 +345,79 @@
     }
 
     /* ------------------------------ AI ----------------------------------- */
+    // Previewable suggestions, keyed by the anchored element's data-label. Each
+    // simulates the edit a *coding agent* would make after acting on the comment —
+    // Margin AI itself only writes the feedback; it never touches the page.
+    const PREVIEWS = {
+      "Get started button": {
+        summary: "bump the primary CTA's size and weight, and de-emphasize the secondary “Watch demo” button so the main action clearly wins",
+        apply: () => {
+          const btn = page.querySelector('[data-label="Get started button"]');
+          const ghost = page.querySelector('[data-label="Watch demo button"]');
+          if (btn) { btn.classList.add("mock-preview-grow"); btn.setAttribute("data-preview-edited", ""); }
+          if (ghost) ghost.classList.add("mock-preview-dim");
+        },
+        revert: () => {
+          const btn = page.querySelector('[data-label="Get started button"]');
+          const ghost = page.querySelector('[data-label="Watch demo button"]');
+          if (btn) { btn.classList.remove("mock-preview-grow"); btn.removeAttribute("data-preview-edited"); }
+          if (ghost) ghost.classList.remove("mock-preview-dim");
+        },
+      },
+      "hero headline": {
+        summary: "tighten the headline to a punchier, benefit-led line",
+        apply: () => {
+          const h = page.querySelector('[data-label="hero headline"]');
+          if (h) { if (h.dataset.orig == null) h.dataset.orig = h.textContent; h.textContent = "From idea to live app — before lunch."; h.setAttribute("data-preview-edited", ""); }
+        },
+        revert: () => {
+          const h = page.querySelector('[data-label="hero headline"]');
+          if (h && h.dataset.orig != null) { h.textContent = h.dataset.orig; h.removeAttribute("data-preview-edited"); }
+        },
+      },
+    };
+    function previewFor(th) {
+      const label = th.anchorEl && th.anchorEl.getAttribute && th.anchorEl.getAttribute("data-label");
+      return label ? PREVIEWS[label] : null;
+    }
+
     function askAI(th) {
       const ai = { author: { name: "Margin AI", color: "#7c3aed" }, body: "", kind: "ai", pending: true, at: Date.now() };
       th.comments.push(ai);
       render();
       setTimeout(() => {
+        const prev = previewFor(th);
         ai.pending = false;
-        ai.body = aiAnswer(th);
+        ai.body = aiAnswer(th, prev);
+        ai.preview = !!prev; // render a "Preview the change" affordance on this comment
         render();
         flashThread(th.id);
       }, 1100);
     }
-    function aiAnswer(th) {
-      const label = (th.quote || "this element").toLowerCase();
+    function aiAnswer(th, prev) {
+      if (prev) {
+        return (
+          "Good catch. Reading the live page, I'd " + prev.summary + ". " +
+          "I've written that up as a concrete change below — preview it to see the result on the page."
+        );
+      }
       return (
-        "Looking at the page, the “" + th.quote + "” sits in the hero above the fold. " +
-        "Two quick wins: tighten the copy to one clear verb-led action, and make sure the contrast " +
-        "ratio clears 4.5:1 for accessibility. If this is the primary CTA, it should be the most " +
-        "prominent button on the screen — consider increasing its size or spacing.\n\n" +
+        "Looking at the page around “" + th.quote + "”: keep the copy to one clear, " +
+        "benefit-led action and make sure it stands out from the secondary elements. " +
+        "Copy this comment into your coding agent (Cursor, Claude Code, …) to apply it.\n\n" +
         "(Demo response — in the real extension this is grounded in the live page via your own Claude/GPT/Gemini key.)"
       );
+    }
+    function togglePreview(th) {
+      const prev = previewFor(th);
+      if (!prev) return;
+      th.previewOn = !th.previewOn;
+      if (th.previewOn) prev.apply(); else prev.revert();
+      render();
+      toast(th.previewOn ? "Preview — this is what your agent would ship" : "Preview reverted");
+    }
+    function clearPreviews() {
+      Object.values(PREVIEWS).forEach((p) => p.revert());
     }
     function summarize() {
       S.summary = { loading: true };
@@ -456,7 +509,7 @@
         el("span", { class: "mg-th-anchor", title: t.quote, text: "“" + t.quote.slice(0, 46) + (t.quote.length > 46 ? "…" : "") + "”" }),
       ]);
 
-      const comments = el("div", {}, t.comments.map((c) => renderComment(c)));
+      const comments = el("div", {}, t.comments.map((c) => renderComment(t, c)));
 
       const ta = el("textarea", { class: "mg-reply-input", rows: "1", placeholder: "Reply…" });
       ta.addEventListener("keydown", (e) => {
@@ -476,17 +529,30 @@
       return el("div", { class: "mg-th" + (t.resolved ? " mg-th-resolved" : ""), "data-th": t.id }, [head, comments, replyRow]);
     }
 
-    function renderComment(c) {
+    function renderComment(t, c) {
       const isAI = c.kind === "ai";
       const a = isAI ? { name: "Margin AI", color: "#7c3aed" } : c.author;
       const av = isAI ? el("span", { class: "mg-avatar mg-avatar-ai", text: "✦" }) : (() => { const x = el("span", { class: "mg-avatar", text: initials(a.name) }); x.style.background = a.color; return x; })();
-      const body = c.pending
-        ? el("div", { class: "mg-ai-thinking", text: "✨ Margin AI is thinking…" })
-        : el("div", { class: "mg-c-body", html: esc(c.body).replace(/\n/g, "<br>") });
-      return el("div", { class: "mg-c" + (isAI ? " mg-c-ai" : "") }, [
+      const kids = [
         el("div", { class: "mg-c-head" }, [av, el("span", { class: "mg-c-name", text: a.name }), el("span", { class: "mg-c-time", text: "just now" })]),
-        body,
-      ]);
+        c.pending
+          ? el("div", { class: "mg-ai-thinking", text: "✨ Margin AI is thinking…" })
+          : el("div", { class: "mg-c-body", html: esc(c.body).replace(/\n/g, "<br>") }),
+      ];
+      // AI suggestion with a previewable change: show the preview toggle + a clear
+      // note that Margin only writes feedback — the agent makes the actual edit.
+      if (isAI && c.preview && !c.pending) {
+        const btn = el("button", {
+          class: "mg-preview-btn" + (t.previewOn ? " on" : ""),
+          text: t.previewOn ? "↩ Revert preview" : "▶ Preview the change",
+          onclick: () => togglePreview(t),
+        });
+        const row = el("div", { class: "mg-preview-row" }, [btn, t.previewOn ? el("span", { class: "mg-preview-tag", text: "Previewing" }) : null].filter(Boolean));
+        kids.push(row);
+        kids.push(el("div", { class: "mg-ai-disclaimer", html:
+          "Margin doesn't edit your app — it writes the feedback. In real use you'd <b>Copy for AI</b> and your coding agent (Cursor, Claude Code, …) makes the change. This preview just simulates the result." }));
+      }
+      return el("div", { class: "mg-c" + (isAI ? " mg-c-ai" : "") }, kids);
     }
 
     function reply(t, ta) {
@@ -550,6 +616,7 @@
       teamBadge.classList.remove("on");
       connectBtn.style.display = "";
       if (S.teammateCursor) { S.teammateCursor.remove(); S.teammateCursor = null; }
+      clearPreviews(); // undo any simulated agent edits on the mock page
       control.style.left = ""; control.style.top = ""; control.style.transform = ""; // recenter the dragged bar
       closeComposer();
       setMode("comment");

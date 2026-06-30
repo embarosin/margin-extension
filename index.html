@@ -54,7 +54,22 @@
     <main>
       <section class="panel" id="about" data-panel="about">
         <div class="hero">
-          <div class="hero-logo">✦</div>
+          <div class="hero-logo" aria-hidden="true">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="mg-hero-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#6366f1" />
+                  <stop offset="1" stop-color="#8b5cf6" />
+                </linearGradient>
+              </defs>
+              <rect width="32" height="32" rx="7" fill="url(#mg-hero-grad)" />
+              <rect x="6" y="8" width="20" height="12.5" rx="3.2" fill="#fff" />
+              <path d="M10.8 18.5 L16 18.5 L10.8 24.2 Z" fill="#fff" />
+              <circle cx="11.6" cy="14" r="1.5" fill="#6366f1" />
+              <circle cx="16" cy="14" r="1.5" fill="#6366f1" />
+              <circle cx="20.4" cy="14" r="1.5" fill="#6366f1" />
+            </svg>
+          </div>
           <h1>Multiplayer comments for <em>any</em> page</h1>
           <p class="lede">
             Turn any website, AI-built prototype, internal tool, or
@@ -64,7 +79,6 @@
           </p>
           <div class="hero-actions">
             <button class="btn btn-primary" data-goto="demo">▶ Try the live demo</button>
-            <a class="btn btn-ghost" href="https://github.com" id="repo-link" target="_blank" rel="noopener">View on GitHub</a>
           </div>
           <p class="hero-note">No install needed to try it — the demo below runs the real experience in your browser.</p>
         </div>
@@ -129,12 +143,13 @@
             This is a live, in-page demo — the same interactions as the real
             extension, running on a mock product page below. Switch to
             <b>💬 Comment</b>, then click anything or highlight text to leave a
-            note. Reply, resolve, ask the (demo) AI, and flip on a demo team.
+            note. Reply, resolve, or hit <b>✨ Ask AI</b> for a suggested fix —
+            then <b>preview</b> what your coding agent would change.
           </p>
           <div class="demo-tips" id="demo-tips">
             <span class="demo-tip">① Hit <b>💬 Comment</b> in the bar</span>
             <span class="demo-tip">② Click an element or highlight text</span>
-            <span class="demo-tip">③ Try <b>Connect demo team</b> for the green badge</span>
+            <span class="demo-tip">③ Open the seeded comment → <b>✨ Ask AI</b> → <b>Preview</b></span>
           </div>
         </div>
 
@@ -177,9 +192,8 @@
           </div>
         </div>
         <p class="demo-foot">
-          Like it? It's a real Manifest V3 extension with no build step.
-          <a href="https://github.com" id="repo-link-2" target="_blank" rel="noopener">Get it on GitHub</a>
-          and load the folder, or wait for the Chrome Web Store listing.
+          Like it? Margin is a real Manifest V3 extension with no build step —
+          coming soon to the Chrome Web Store.
         </p>
       </section>
 
