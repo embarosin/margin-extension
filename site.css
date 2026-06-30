@@ -35,9 +35,10 @@ em { font-style: normal; background: linear-gradient(90deg, var(--indigo), var(-
 }
 .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; color: var(--ink); text-decoration: none; }
 .brand-logo {
-  width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
-  background: linear-gradient(135deg, var(--indigo), var(--violet)); color: #fff; font-size: 16px;
+  width: 28px; height: 28px; display: block; flex: 0 0 auto;
+  filter: drop-shadow(0 2px 6px rgba(99, 102, 241, 0.35));
 }
+.brand-logo svg { width: 100%; height: 100%; display: block; }
 .tabs { display: flex; gap: 4px; margin: 0 auto 0 8px; }
 .tab {
   background: transparent; border: none; cursor: pointer;
@@ -158,8 +159,10 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
   border-radius: 999px; padding: 6px 8px 6px 12px; box-shadow: 0 8px 28px rgba(0,0,0,.32);
   font-size: 13px; user-select: none;
 }
-#demo-stage .mg-control-brand { font-weight: 700; display: flex; align-items: center; gap: 5px; }
+#demo-stage .mg-control-brand { font-weight: 700; display: flex; align-items: center; gap: 5px; cursor: grab; user-select: none; touch-action: none; }
+#demo-stage .mg-control-brand:active { cursor: grabbing; }
 #demo-stage .mg-control-brand .logo { color: #a5b4fc; }
+#demo-stage .mg-grip { color: #64748b; font-size: 14px; line-height: 1; letter-spacing: -2px; }
 #demo-stage .mg-seg { display: flex; background: rgba(255,255,255,.12); border-radius: 999px; padding: 2px; }
 #demo-stage .mg-seg button { background: transparent; border: none; color: #cbd5e1; font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
 #demo-stage .mg-seg button.on { background: var(--indigo); color: #fff; }

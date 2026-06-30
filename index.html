@@ -17,14 +17,29 @@
     <link rel="stylesheet" href="site.css" />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366f1'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='white'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23g)'/%3E%3Crect x='6' y='8' width='20' height='12.5' rx='3.2' fill='white'/%3E%3Cpath d='M10.8 18.5 L16 18.5 L10.8 24.2 Z' fill='white'/%3E%3Ccircle cx='11.6' cy='14' r='1.5' fill='%236366f1'/%3E%3Ccircle cx='16' cy='14' r='1.5' fill='%236366f1'/%3E%3Ccircle cx='20.4' cy='14' r='1.5' fill='%236366f1'/%3E%3C/svg%3E"
     />
   </head>
   <body>
     <!-- ───────────────────────── header / nav ───────────────────────── -->
     <header class="site-head">
       <a class="brand" href="#about">
-        <span class="brand-logo">✦</span>
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="mg-logo-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#6366f1" />
+                <stop offset="1" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="7" fill="url(#mg-logo-grad)" />
+            <rect x="6" y="8" width="20" height="12.5" rx="3.2" fill="#fff" />
+            <path d="M10.8 18.5 L16 18.5 L10.8 24.2 Z" fill="#fff" />
+            <circle cx="11.6" cy="14" r="1.5" fill="#6366f1" />
+            <circle cx="16" cy="14" r="1.5" fill="#6366f1" />
+            <circle cx="20.4" cy="14" r="1.5" fill="#6366f1" />
+          </svg>
+        </span>
         <span>Margin</span>
       </a>
       <nav class="tabs" role="tablist" aria-label="Sections">

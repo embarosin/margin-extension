@@ -104,8 +104,14 @@
       countBtn = el("button", { class: "mg-control-btn", title: "Toggle comments", onclick: () => toggleSidebar() }, [
         "💬 ", el("span", { class: "mg-control-count", text: "0" }),
       ]);
+      // brand doubles as the drag handle (grip + logo + name), like the real bar
+      const brand = el("span", { class: "mg-control-brand", title: "Drag to move" }, [
+        el("span", { class: "mg-grip", text: "⠿" }),
+        el("span", { class: "logo", text: "✦" }),
+        "Margin",
+      ]);
       control = el("div", { class: "mg-control" }, [
-        el("span", { class: "mg-control-brand" }, [el("span", { class: "logo", text: "✦" }), "Margin"]),
+        brand,
         seg,
         el("span", { class: "mg-control-hint", text: "highlight text to comment" }),
         connectBtn,
@@ -116,6 +122,7 @@
       control._comment = commentBtn;
       control._count = countBtn.querySelector(".mg-control-count");
       stage.appendChild(control);
+      setupControlDrag(control, brand);
 
       // selection toolbar
       const selBtn = el("button", { class: "mg-sel-btn", text: "💬 Comment" });
@@ -173,6 +180,32 @@
       // reset button
       const resetBtn = document.getElementById("demo-reset");
       if (resetBtn) resetBtn.addEventListener("click", reset);
+    }
+
+    // Drag the control bar by its brand/grip, bounded to the stage — mirrors the
+    // real extension's draggable bar (overlay.js setupDrag).
+    function setupControlDrag(bar, handle) {
+      handle.style.touchAction = "none";
+      handle.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        const r = bar.getBoundingClientRect();
+        const s = stage.getBoundingClientRect();
+        const dx = e.clientX - r.left;
+        const dy = e.clientY - r.top;
+        const move = (ev) => {
+          const left = ev.clientX - s.left - dx;
+          const top = ev.clientY - s.top - dy;
+          bar.style.left = Math.max(4, Math.min(left, stage.clientWidth - bar.offsetWidth - 4)) + "px";
+          bar.style.top = Math.max(4, Math.min(top, stage.clientHeight - bar.offsetHeight - 4)) + "px";
+          bar.style.transform = "none"; // override the centered default
+        };
+        const up = () => {
+          window.removeEventListener("pointermove", move, true);
+          window.removeEventListener("pointerup", up, true);
+        };
+        window.addEventListener("pointermove", move, true);
+        window.addEventListener("pointerup", up, true);
+      });
     }
 
     /* ----------------------------- helpers ------------------------------- */
@@ -517,6 +550,7 @@
       teamBadge.classList.remove("on");
       connectBtn.style.display = "";
       if (S.teammateCursor) { S.teammateCursor.remove(); S.teammateCursor = null; }
+      control.style.left = ""; control.style.top = ""; control.style.transform = ""; // recenter the dragged bar
       closeComposer();
       setMode("comment");
       toggleSidebar(true);
